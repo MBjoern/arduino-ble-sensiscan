@@ -8,13 +8,18 @@
 #define ARDUINO_BLE_SENSISCAN_NIMBLECLIENT_H
 
 #include "BleClient.h"
+#include "NimBLEDevice.h"
 
-class NimBleClient : public BleClient {
+class NimBleClient: public BleClient, public NimBLEAdvertisedDeviceCallbacks {
   public:
-    void begin(std::function<void(byte[], int)> callback) override;
+    void begin(BleClientCallback callback) override;
+    void keepAlive() override;
 
   private:
-    std::function<void(byte[], int)> _callback;
+    NimBLEScan* _bleScan;
+    BleClientCallback _callback;
+    void setupAndStartBleScans();
+    void onResult(NimBLEAdvertisedDevice* advertisedDevice);
 };
 
 #endif // ARDUINO_BLE_SENSISCAN_NIMBLECLIENT_H

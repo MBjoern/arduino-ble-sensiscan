@@ -25,10 +25,12 @@ class SensiScan {
 
     void begin();
     void getScanResults(std::vector<SensorValues>& sensorValues);
+    void keepAlive();
 
   private:
     BleClient* _bleClient;
-    static void onAdvertisementReceived(byte advertised_data[], int size);
+    static void onAdvertisementReceived(std::string address, std::string name,
+                                        std::string manufacturerData);
 };
 
 #endif // ARDUINO_BLE_SENSISCAN_H
