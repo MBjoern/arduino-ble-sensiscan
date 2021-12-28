@@ -9,22 +9,17 @@
 
 #include "Arduino.h"
 #include "BleClient.h"
+#include "Sample.h"
+#include "SampleDecoder.h"
 #include <string>
 #include <vector>
 
 class SensiScan {
   public:
-    enum UnitType { T, RH, VOC, NOX, CO2, PM2P5, HCHO };
-    struct SensorValues {
-        std::string deviceId;
-        UnitType type;
-        double value;
-    };
-
     explicit SensiScan(){};
 
     void begin();
-    void getScanResults(std::vector<SensorValues>& sensorValues);
+    void getScanResults(std::vector<Sample>& samples);
     void keepAlive();
 
   private:

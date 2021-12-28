@@ -14,21 +14,9 @@ void setup() {
     sensiScan.begin();
 }
 
-void printScanResults(std::vector<SensiScan::SensorValues>& scanResults) {
-    Serial.print("New ScanResults: Count = ");
-    Serial.println(scanResults.size());
-    for (int i = 0; i < scanResults.size(); i++) {
-        Serial.print(" - Scan Result: ");
-        Serial.print(i);
-        Serial.print(" -> DeviceId = ");
-        Serial.println(scanResults[i].deviceId.c_str());
-    }
-}
-
 void loop() {
-    std::vector<SensiScan::SensorValues> scanResults;
+    std::vector<Sample> samples;
     delay(1000);
 
-    sensiScan.getScanResults(scanResults);
-    printScanResults(scanResults);
+    sensiScan.getScanResults(samples);
 }
