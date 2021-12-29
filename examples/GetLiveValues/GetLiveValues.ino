@@ -1,7 +1,5 @@
 #include <Arduino.h>
-#include "Arduino_Ble_SensiScan.h"
-#include <list>
-#include <vector>
+#include "ArduinoBleSensiScan.h"
 
 SensiScan sensiScan = SensiScan();
 
@@ -14,9 +12,21 @@ void setup() {
     sensiScan.begin();
 }
 
+void printScanResults(std::map <std::string, std::vector<Sample>> &scanResults) {
+    Serial.println("New Scan Results:");
+    for (const auto& item : scanResults) {
+        printf(" - Device Id: %s \n", item.first.c_str());
+        for (int i = 0; i < item.second.size(); i++) {
+            Serial.printf("  - %s -> %f \n", unitTypeString[item.second[i].type].c_str(), item.second[i].value);
+        }
+    }
+}
+
 void loop() {
-    std::vector<Sample> samples;
+    std::map < std::string, std::vector < Sample >> scanResults;
     delay(1000);
 
-    sensiScan.getScanResults(samples);
+    sensiScan.getScanResults(scanResults);
+
+    printScanResults(scanResults);
 }

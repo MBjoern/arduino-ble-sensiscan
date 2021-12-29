@@ -7,6 +7,11 @@
 #ifndef ARDUINO_BLE_SENSISCAN_UNITTYPE_H
 #define ARDUINO_BLE_SENSISCAN_UNITTYPE_H
 
+#include <string>
+
 enum UnitType { UNDEFINED, T, RH, VOC, NOX, CO2, PM2P5, HCHO };
+
+const std::string unitTypeString[] = {"UNDEFINED", "T",   "RH",    "VOC",
+                                      "NOX",       "CO2", "PM2P5", "HCHO"};
 
 #endif // ARDUINO_BLE_SENSISCAN_UNITTYPE_H

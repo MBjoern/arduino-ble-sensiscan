@@ -6,7 +6,7 @@
 
 #include "NimBleClient.h"
 
-void NimBleClient::begin(BleClientCallback callback) {
+void NimBleClient::begin(BleClientCallback* callback) {
     _callback = callback;
     setupAndStartBleScans();
 };
@@ -52,5 +52,5 @@ void NimBleClient::onResult(NimBLEAdvertisedDevice* advertisedDevice) {
         advertisedDevice->haveName() ? advertisedDevice->getName() : "No Name";
     std::string manufacturerData = advertisedDevice->getManufacturerData();
 
-    _callback(address, name, manufacturerData);
+    _callback->onAdvertisementReceived(address, name, manufacturerData);
 };

@@ -12,12 +12,12 @@
 
 class NimBleClient: public BleClient, public NimBLEAdvertisedDeviceCallbacks {
   public:
-    void begin(BleClientCallback callback) override;
+    void begin(BleClientCallback* callback) override;
     void keepAlive() override;
 
   private:
     NimBLEScan* _bleScan;
-    BleClientCallback _callback;
+    BleClientCallback* _callback;
     void setupAndStartBleScans();
     void onResult(NimBLEAdvertisedDevice* advertisedDevice);
 };
