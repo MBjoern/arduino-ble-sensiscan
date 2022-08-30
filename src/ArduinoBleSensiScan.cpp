@@ -16,7 +16,7 @@ void SensiScan::begin() {
 }
 
 void SensiScan::getScanResults(
-    std::map<std::string, std::vector<Sample>>& scanResults) {
+    std::map<Gadget, std::vector<Sample>>& scanResults) {
     // TODO: Copy properly
     scanResults = _sampleCache;
 }
@@ -36,13 +36,15 @@ void SensiScan::onAdvertisementReceived(std::string address, std::string name,
     uint8_t sampleType = (uint8_t)data[3];
     std::string deviceId = getDeviceId(data);
 
+    Gadget gadget = {deviceId, name};
+
     std::vector<Sample> samples;
     uint8_t error = SampleDecoder::decode(sampleType, data, samples);
     if (error) {
         return;
     }
 
-    _sampleCache[deviceId] = samples;
+    _sampleCache[gadget] = samples;
 }
 
 std::string SensiScan::getDeviceId(std::string data) {
