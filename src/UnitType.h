@@ -9,9 +9,10 @@
 
 #include <string>
 
-enum UnitType { UNDEFINED, T, RH, VOC, NOX, CO2, PM2P5, HCHO };
+enum UnitType { UNDEFINED, T, RH, VOC, NOX, CO2, PM2P5, HCHO, PM1P0, PM4P0, PM10 };
 
 const std::string unitTypeString[] = {"UNDEFINED", "T",   "RH",    "VOC",
-                                      "NOX",       "CO2", "PM2P5", "HCHO"};
+                                      "NOX",       "CO2", "PM2P5", "HCHO",
+                                      "PM1P0", "PM4P0", "PM10"};
 
 #endif // ARDUINO_BLE_SENSISCAN_UNITTYPE_H

@@ -104,7 +104,7 @@ SampleEncoding getEncoding(uint8_t sampleType) {
                  {8, {UnitType::RH, &SampleDecoder::decodeHumidityV1}},
                  {10, {UnitType::VOC, &SampleDecoder::decodeSimple}},
                  {12, {UnitType::NOX, &SampleDecoder::decodeSimple}},
-                 {14, {UnitType::PM2P5, &SampleDecoder::decodePM2p5V2}}},
+                 {14, {UnitType::PM2P5, &SampleDecoder::decodePMV2}}},
             };
         case 26:
             return {
@@ -114,8 +114,52 @@ SampleEncoding getEncoding(uint8_t sampleType) {
                  {10, {UnitType::CO2, &SampleDecoder::decodeSimple}},
                  {12, {UnitType::VOC, &SampleDecoder::decodeSimple}},
                  {14, {UnitType::NOX, &SampleDecoder::decodeSimple}},
-                 {16, {UnitType::PM2P5, &SampleDecoder::decodePM2p5V2}}},
+                 {16, {UnitType::PM2P5, &SampleDecoder::decodePMV2}}},
             };
+        case 28:
+            return {
+                14,
+                {{6, {UnitType::T, &SampleDecoder::decodeTemperatureV1}},
+                    {8, {UnitType::RH, &SampleDecoder::decodeHumidityV1}},
+                    {10, {UnitType::CO2, &SampleDecoder::decodeSimple}},
+                    {12, {UnitType::PM2P5, &SampleDecoder::decodePMV2}},
+                    }
+            };
+        case 30:
+            return {
+                14,
+                {{6, {UnitType::T, &SampleDecoder::decodeTemperatureV1}},
+                    {8, {UnitType::RH, &SampleDecoder::decodeHumidityV1}},
+                    {10, {UnitType::VOC, &SampleDecoder::decodeSimple}},
+                    {12, {UnitType::PM2P5, &SampleDecoder::decodePMV2}},
+                }
+            };
+        case 31:
+            return {
+                18,
+                {{6, {UnitType::T, &SampleDecoder::decodeTemperatureV1}},
+                 {8, {UnitType::RH, &SampleDecoder::decodeHumidityV1}},
+                 {10, {UnitType::CO2, &SampleDecoder::decodeSimple}},
+                 {12, {UnitType::VOC, &SampleDecoder::decodeSimple}},
+                 {14, {UnitType::PM2P5, &SampleDecoder::decodePMV2}},
+                 {16, {UnitType::HCHO, &SampleDecoder::decodeHumidityV2}}},
+            };
+        case 34:
+            return {
+                14,
+                {{6, {UnitType::PM1P0, &SampleDecoder::decodePMV2}},
+                    {8, {UnitType::PM2P5, &SampleDecoder::decodePMV2}},
+                    {10, {UnitType::PM4P0, &SampleDecoder::decodePMV2}},
+                    {12, {UnitType::PM10, &SampleDecoder::decodePMV2}},
+                }
+            };
+        case 36:
+            return {
+                8,
+                {{6, {UnitType::CO2, &SampleDecoder::decodeSimple}},
+                },
+            };
+
         default:
             return {-1, {}};
     }
@@ -165,7 +209,7 @@ float SampleDecoder::decodePM2p5V1(std::string data, uint8_t offset) {
     return (1000.0f * static_cast<float>(value)) / 65535;
 }
 
-float SampleDecoder::decodePM2p5V2(std::string data, uint8_t offset) {
+float SampleDecoder::decodePMV2(std::string data, uint8_t offset) {
     uint16_t value = getRawValue(data, offset);
     return static_cast<float>(value) / 10.0f;
 }
