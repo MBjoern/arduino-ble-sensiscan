@@ -46,7 +46,7 @@ void SensiScan::onAdvertisementReceived(std::string address, std::string name,
 }
 
 std::string SensiScan::getDeviceId(std::string data) {
-    char id[5];
+    char id[6];
     sprintf(id, "%02x:%02x", (uint8_t)data[4], (uint8_t)data[5]);
     std::string deviceId(id);
     return deviceId;
