@@ -12,10 +12,11 @@ void setup() {
     sensiScan.begin();
 }
 
-void printScanResults(std::map <std::string, std::vector<Sample>> &scanResults) {
+void printScanResults(std::map<Gadget, std::vector<Sample>> &scanResults) {
     Serial.println("New Scan Results:");
     for (const auto& item : scanResults) {
-        printf(" - Device Id: %s \n", item.first.c_str());
+        Gadget gadget = item.first;
+        Serial.printf(" - %s Gadget with Id: %s \n", gadget.name.c_str(), gadget.deviceId.c_str());
         for (int i = 0; i < item.second.size(); i++) {
             Serial.printf("  - %s -> %f \n", unitTypeString[item.second[i].type].c_str(), item.second[i].value);
         }
@@ -23,7 +24,7 @@ void printScanResults(std::map <std::string, std::vector<Sample>> &scanResults) 
 }
 
 void loop() {
-    std::map < std::string, std::vector < Sample >> scanResults;
+    std::map<Gadget, std::vector<Sample>> scanResults;
     delay(1000);
 
     sensiScan.getScanResults(scanResults);

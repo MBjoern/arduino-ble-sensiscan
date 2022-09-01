@@ -21,7 +21,7 @@ float decodeTemperatureV1(std::string data, uint8_t offset);
 float decodeHumidityV1(std::string data, uint8_t offset);
 float decodeHumidityV2(std::string data, uint8_t offset);
 float decodePM2p5V1(std::string data, uint8_t offset);
-float decodePM2p5V2(std::string data, uint8_t offset);
+float decodePMV2(std::string data, uint8_t offset);
 float decodeHCHOV1(std::string data, uint8_t offset);
 uint16_t getRawValue(std::string data, uint8_t offset);
 }; // namespace SampleDecoder

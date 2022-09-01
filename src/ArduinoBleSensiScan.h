@@ -9,6 +9,7 @@
 
 #include "Arduino.h"
 #include "BleClient.h"
+#include "Gadget.h"
 #include "Sample.h"
 #include "SampleDecoder.h"
 #include <map>
@@ -21,12 +22,12 @@ class SensiScan: public BleClientCallback {
 
     void begin();
     void
-    getScanResults(std::map<std::string, std::vector<Sample>>& scanResults);
+    getScanResults(std::map<Gadget, std::vector<Sample>>& scanResults);
     void keepAlive();
 
   private:
     BleClient* _bleClient;
-    std::map<std::string, std::vector<Sample>> _sampleCache;
+    std::map<Gadget, std::vector<Sample>> _sampleCache;
     void onAdvertisementReceived(std::string address, std::string name,
                                  std::string manufacturerData);
     std::string getDeviceId(std::string data);
