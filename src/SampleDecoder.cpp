@@ -161,7 +161,7 @@ SampleEncoding getEncoding(uint8_t sampleType) {
             };
 
         default:
-            return {-1, {}};
+            return {0, {}};
     }
 }
 
